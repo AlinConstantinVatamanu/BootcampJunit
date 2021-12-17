@@ -110,10 +110,11 @@ class CarritoCompraServiceImplTest {
 	@Test
 	void testInsertar() {
 		Articulo articulo = new Articulo("Camiseta", 20.00);
+		when(baseDatosMock.insertarArticulo(any(Articulo.class))).thenReturn(0);
 		Integer identificador = carritoService.insertar(articulo);
-		//when(baseDatosMock.insertarArticulo(any(Articulo.class))).thenReturn(identificador);
 		List<Articulo> articulos = carritoService.getArticulos();
 		
+		assertEquals(0, identificador);
 		assertEquals("Camiseta", articulos.get(identificador).getNombre());
 		assertEquals(20D, articulos.get(identificador).getPrecio());
 		verify(baseDatosMock, atLeast(1)).insertarArticulo(any(Articulo.class));
